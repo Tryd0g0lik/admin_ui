@@ -10,8 +10,8 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/typography'),
+
     require("daisyui"),
-    // require('prettier-plugin-tailwindcss'),
   ],
   // daisyui: {
   //   "styled": true,

@@ -8,6 +8,26 @@ html * {
 }
 html,
 body,
-#root {
-  min-height: 100vh;
+#root,
+#root>div:first-child {
+
+  height: 100vh;
+  width: 100vw;
+
+}
+
+
+#root>div:first-child {
+  position: relative;
+}
+
+.h1 {
+  font-size: 3rem;
+  display: inline;
+  text-align: center;
+  align-items: center;
+}
+
+.h2 {
+  font-size: 2.5rem;
 }

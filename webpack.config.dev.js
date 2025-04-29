@@ -128,7 +128,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: 'styles/output.css'
+      filename: 'output.css'
     }),
   ],
   watchOptions: {
@@ -145,7 +145,7 @@ module.exports = {
 
 
     watchFiles: [
-      'dist',
+      'src',
 
     ],
     hot: true, // Включение горячей перезагрузки

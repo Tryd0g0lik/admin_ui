@@ -1,4 +1,5 @@
 /*! tailwindcss v4.1.4 | MIT License | https://tailwindcss.com */
+@layer properties;
 .static {
   position: static;
 }
@@ -10,6 +11,10 @@
 }
 .h-\[1em\] {
   height: 1em;
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
 }
 .lowercase {
   text-transform: lowercase;
@@ -26,6 +31,31 @@
 html * {
   font-size: 16px;
 }
-html, body, #root {
-  min-height: 100vh;
+html, body, #root, #root>div:first-child {
+  height: 100vh;
+  width: 100vw;
+}
+#root>div:first-child {
+  position: relative;
+}
+.h1 {
+  font-size: 3rem;
+  display: inline;
+  text-align: center;
+  align-items: center;
+}
+.h2 {
+  font-size: 2.5rem;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@layer properties {
+  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
+    *, ::before, ::after, ::backdrop {
+      --tw-border-style: solid;
+    }
+  }
 }

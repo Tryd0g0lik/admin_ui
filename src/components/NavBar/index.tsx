@@ -1,5 +1,5 @@
 import React, {JSX} from "react";
-
+import "./styles/index.css";
 
 export function NavBarFC(): JSX.Element {
   return (<>

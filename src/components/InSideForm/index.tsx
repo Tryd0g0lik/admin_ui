@@ -1,17 +1,17 @@
 import React, {JSX} from "react";
-
+import "./styles/index.css";
 
 export function InSideFormFC(): JSX.Element {
 /**
  * This is a component for authentication  form
  */
 
-  return (<div className="ModalWindow">
+  return (<div className="modal-window">
     <div className="h2">
       {/** HEADER OF FORM */}
       <h2>Подтвердите профиль</h2>
     </div>
-    <div className="form">
+    <div className="modal-window__inner form">
     <form>
       <div className="form__input_email">
         <label className="input validator">
