@@ -3,14 +3,14 @@
  */
 import React from "react";
 import {createBrowserRouter, RouterProvider } from "react-router-dom";
-import { NavBarFC } from "src/components/NavBar";
+import { MainFC } from "src/components/Main";
 
 const router_ = createBrowserRouter([
   {
     path: "/",
     element: (
       <div>
-        <NavBarFC />
+        <MainFC />
       </div>
     )
   }

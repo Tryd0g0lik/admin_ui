@@ -1,3 +1,31 @@
+/*! tailwindcss v4.1.4 | MIT License | https://tailwindcss.com */
+.static {
+  position: static;
+}
+.z-1 {
+  z-index: 1;
+}
+.hidden {
+  display: none;
+}
+.h-\[1em\] {
+  height: 1em;
+}
+.lowercase {
+  text-transform: lowercase;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.underline {
+  text-decoration-line: underline;
+}
+.opacity-50 {
+  opacity: 50%;
+}
 html * {
   font-size: 16px;
+}
+html, body, #root {
+  min-height: 100vh;
 }
