@@ -267,6 +267,7 @@ pyrightconfig.json
 
 # project
 .env
+arhive
 !.env.example
 archive
 dist

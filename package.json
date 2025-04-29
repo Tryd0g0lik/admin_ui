@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "\"README.md\"",
   "main": "babel.config.js",
-  "type": "commonjs",
+  "type": "co",
   "private": true,
   "dependencies": {
     "ajv": "8.17.1",

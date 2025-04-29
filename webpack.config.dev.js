@@ -9,8 +9,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
-module.exports = {
+// import ChunksWebpackPlugin from 'chunks-webpack-plugin';
 
+module.exports = {
+  mode: 'none',
   // entry: './src/index.ts',
   entry:
   {
@@ -27,13 +29,19 @@ module.exports = {
     // another: './src/another-module.js',
   },
   cache: false, // the cache is close
-  mode: 'none',
+
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'scripts/main-[id]-[fullhash].js',
     publicPath: '/',
     clean: true,
 
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      maxSize: 200000,
+    },
   },
   // https://webpack.js.org/guides/code-splitting/#entry-dependencies
   optimization: {
@@ -51,9 +59,9 @@ module.exports = {
     ],
   },
   performance: {
-    maxAssetSize: 780000, // Set max asset size to 300 KiB
-    maxEntrypointSize: 780000, // Set max entry point size to 300 KiB
-    hints: 'warning', // Can be 'error', 'warning', or false
+    maxAssetSize: 70000, // Set max asset size to 300 KiB
+    maxEntrypointSize: 70000, // Set max entry point size to 300 KiB
+    // hints: 'warning', // Can be 'error', 'warning', or false
   },
   target: 'web',
   module: {
@@ -95,6 +103,10 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new CleanWebpackPlugin(), // the 'dist/' is cleans
+    // new ChunksWebpackPlugin(
+    //   { generateChunksFiles: false }
+    // ),
+
     new BundleTracker({
       path: path.join(__dirname, '../bundles'),
       filename: 'webpack-stats.json'
@@ -116,7 +128,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: '../styles/output.css'
+      filename: 'styles/output.css'
     }),
   ],
   watchOptions: {
@@ -133,7 +145,7 @@ module.exports = {
 
 
     watchFiles: [
-      'src',
+      'dist',
 
     ],
     hot: true, // Включение горячей перезагрузки
