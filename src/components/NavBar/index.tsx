@@ -1,8 +1,12 @@
+/**
+ * src\components\NavBar\index.tsx
+ */
 import React, {JSX} from "react";
 import "./styles/index.css";
 
 export function NavBarFC(): JSX.Element {
   return (<>
+    <header>
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
         <div className="dropdown">
@@ -42,10 +46,11 @@ export function NavBarFC(): JSX.Element {
           <li><a>Выход</a></li>
         </ul>
       </div>
-      <div className="navbar-end">
+        <div className="button navbar-end">
         <a className="btn">Вход</a>
       </div>
     </div>
+    </header>
     <section className="h1" >
       <h1 className="text-3xl font-bold underline pb-8">
         Администратор
