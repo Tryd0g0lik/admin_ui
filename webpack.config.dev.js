@@ -101,8 +101,8 @@ module.exports = {
     }),
 
     new HtmlWebpackPlugin({
-      template: 'src/public/index_dev.html',
-      filename: "../index.html"
+      template: 'src/public/index.html',
+      filename: "index.html"
     }),
     new webpack.SourceMapDevToolPlugin({
       test: /\.tsx?$/,
