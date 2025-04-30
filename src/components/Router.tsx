@@ -17,7 +17,9 @@ const router_ = createBrowserRouter([
 ]);
 
 const pagesProvider = (
-  <RouterProvider router={router_} />
+  <RouterProvider router={router_} future={{
+    v7_startTransition: true,
+  }} />
 );
 
 type RouterType = typeof pagesProvider;

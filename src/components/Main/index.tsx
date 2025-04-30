@@ -17,6 +17,9 @@ export function MainFC(): React.JSX.Element {
 
   const userstate = { "userstate": userData };
   const userdata = { "setuserdata": setUserData };
+  useEffect(() => {
+    console.log(`@USERSTATE: ${userData}`);
+  }, [userData]);
   return (
     <>
       <NavBarFC {...userstate} />

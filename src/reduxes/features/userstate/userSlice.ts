@@ -5,11 +5,11 @@ import { UserPrivaleges, UserStatus, User } from "src/interfesaces";
 // https://redux.js.org/tutorials/quick-start#create-a-redux-store
 
 export const initialState: User = {
-  "email": null,
-  "password": null,
+  "email": "",
+  "password": "",
   "status": UserStatus.STATUS_ANONYMOUSUSER,
   "privaleges": [UserPrivaleges.PRIVALEGES_ANONYMOUS],
-  "token": null
+  "token": ""
 };
 
 const userSlice = createSlice({

@@ -26,23 +26,23 @@ export enum UserPrivaleges {
 }
 
 /**
- * email: string | null of user
- * password: string | null of user
+ * email: string  of user
+ * password: string  of user
  */
 interface UserSecretData {
-  email: string | null
-  password: string | null
+  email: string
+  password: string
 }
 
 /** * 
  * status: ADMIN, USER, SUPER_ADMIN, ANONYMOUSUSER of UserStatus
  * privaleges: COMMENT, ALL, READING, NoN of UserPrivaleges
- * token: string | null is secret key of server
+ * token: string  is secret key of server
  */
 export interface User extends UserSecretData {
   status: string // of UserRole
   privaleges: string[] // NoN, All, Reading, Comment
-  token: string | null
+  token?: string
 }
 
 

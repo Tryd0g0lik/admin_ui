@@ -6,28 +6,33 @@ import { useDispatch } from "react-redux";
 import { User } from "src/interfesaces";
 import taskStylesOfModalWindow from "src/components/NavBar/tasks/stylesModalWindow";
 import { handlerButtonLoginOut } from "src/components/NavBar/hamdlers/handlerBotton";
-
+import { handlerRequstTokenGenerate } from "src/components/NavBar/hamdlers/handlerRequest";
 import "./styles/index.css";
 // type Dispatcher = { dispetcher: ReturnType<typeof useDispatch> };
 type userStateConstantes = { userstate: User };
-
+function tetst1(userstate: User) {
+  if (userstate["email"].length > 0 && userstate["email"].length > 0) {
+  /**
+   * Получаем userstate - состояние пользователя
+   * Если аноним то часть менб скрыто
+   * Если админ то все меню открыто
+   * остальных не трогаем пока
+   * 
+   * ++ Обработчик нажатия кнопки входа
+   */
+    handlerRequstTokenGenerate({ ...userstate });
+    console.log('Вы вошли в систему', userstate["status"]);
+  } else {
+    console.log('Вы не вошли в систему');
+  }
+}
 export function NavBarFC(props: userStateConstantes): JSX.Element {
   const { userstate } = { ...props };
+  console.log("STATE EMAIL: ", userstate["email"]);
+  tetst1(userstate);
   useEffect(() => {
-    if (userstate["status"]) {
-      /**
-       * Получаем userstate - состояние пользователя
-       * Если аноним то часть менб скрыто
-       * Если админ то все меню открыто
-       * остальных не трогаем пока
-       * 
-       * ++ Обработчик нажатия кнопки входа
-       */
-      console.log('Вы вошли в систему', userstate["status"]);
-    } else {
-      console.log('Вы не вошли в систему');
-    }
-  }, [userstate]);
+
+  }, []);
   return (<>
     <header onClick={(e: React.MouseEvent) => {
       const resultBoolean = handlerButtonLoginOut(e);

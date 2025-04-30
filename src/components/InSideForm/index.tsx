@@ -18,11 +18,9 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
       {/** HEADER OF FORM */}
       <h2>Подтвердите профиль</h2>
     </div>
-    <div onKeyDown={(e) => {
+    <div onKeyDown={(e: React.KeyboardEvent) => { handlerInputFileds(e, setuserdata); }
       /** This is the event listener on the input filelds from modal window.
-       * then will CHANGE THE setUserData FROM MainFC COMPONENT */
-      handlerInputFileds(setuserdata);
-    }} className="modal-window__inner form">
+       * then will CHANGE THE setUserData FROM MainFC COMPONENT */} className="modal-window__inner form">
     <form>
         <div className="form-input_email">
         <label className="input validator">
