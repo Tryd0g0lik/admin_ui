@@ -1,11 +1,18 @@
-import React, {JSX} from "react";
+import React, { JSX, useState, useEffect } from "react";
+
 import "./styles/index.css";
-
-export function InSideFormFC(): JSX.Element {
+type UseStateCallBack = { setuserdata: CallableFunction };
+export function InSideFormFC(props: UseStateCallBack): JSX.Element {
 /**
- * This is a component for authentication  form
+ * This is a modal-window component. 
+ * It contains a form for the authentication action.
+ * @param uaserData - This is function for received data from the form.
+ * @return JSX.Element - The form in modal window.
  */
-
+  /**
+   * uaserData это callback function для получения данный и возврата в другие компоненты
+   */
+  const { setuserdata } = { ...props };
   return (<div className="modal-window">
     <div className="h2">
       {/** HEADER OF FORM */}

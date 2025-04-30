@@ -1,6 +1,6 @@
 /* THE FORM  OF MODAL WINDOW */
 .modal-window {
-  background-color: rgb(255, 255, 255, 0.1);
+  background-color: rgb(255, 255, 255, 0.5);
   display: flex;
   display: none;
   flex-direction: column;

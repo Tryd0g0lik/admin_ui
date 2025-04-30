@@ -1,12 +1,47 @@
 /**
  * src\components\NavBar\index.tsx
  */
-import React, {JSX} from "react";
-import "./styles/index.css";
+import React, { JSX, useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { User } from "src/interfesaces";
+import taskStylesOfModalWindow from "src/components/NavBar/tasks/stylesModalWindow";
+import { handlerButtonLoginOut } from "src/components/NavBar/hamdlers/handlerBotton";
 
-export function NavBarFC(): JSX.Element {
+import "./styles/index.css";
+// type Dispatcher = { dispetcher: ReturnType<typeof useDispatch> };
+type userStateConstantes = { userstate: User };
+
+export function NavBarFC(props: userStateConstantes): JSX.Element {
+  const { userstate } = { ...props };
+  useEffect(() => {
+    if (userstate["status"]) {
+      /**
+       * Получаем userstate - состояние пользователя
+       * Если аноним то часть менб скрыто
+       * Если админ то все меню открыто
+       * остальных не трогаем пока
+       * 
+       * ++ Обработчик нажатия кнопки входа
+       */
+      console.log('Вы вошли в систему', userstate["status"]);
+    } else {
+      console.log('Вы не вошли в систему');
+    }
+  }, [userstate]);
   return (<>
-    <header>
+    <header onClick={(e: React.MouseEvent) => {
+      const resultBoolean = handlerButtonLoginOut(e);
+      if (resultBoolean) {
+        /** IF CLICK BY BUTTON  */
+        Promise.all([taskStylesOfModalWindow()]).catch((error) => {
+          console.log(`Error: ${error.message}`);
+          // Действие, которое нужно выполнить при ошибке
+        }).then(() => {
+          console.log('Все окей');
+          // Действие, которое нужно выполнить после разрешения промиса
+        });
+      }
+    }}>
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
         <div className="dropdown">
@@ -47,7 +82,7 @@ export function NavBarFC(): JSX.Element {
         </ul>
       </div>
         <div className="button navbar-end">
-        <a className="btn">Вход</a>
+          <a className="button__click btn">Вход</a>
       </div>
     </div>
     </header>
