@@ -1,5 +1,5 @@
 import React, { JSX, useState, useEffect } from "react";
-
+import { handlerInputFileds } from "src/components/InSideForm/handlers/handlerForm";
 import "./styles/index.css";
 type UseStateCallBack = { setuserdata: CallableFunction };
 export function InSideFormFC(props: UseStateCallBack): JSX.Element {
@@ -18,7 +18,11 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
       {/** HEADER OF FORM */}
       <h2>Подтвердите профиль</h2>
     </div>
-    <div className="modal-window__inner form">
+    <div onKeyDown={(e) => {
+      /** This is the event listener on the input filelds from modal window.
+       * then will CHANGE THE setUserData FROM MainFC COMPONENT */
+      handlerInputFileds(setuserdata);
+    }} className="modal-window__inner form">
     <form>
         <div className="form-input_email">
         <label className="input validator">
