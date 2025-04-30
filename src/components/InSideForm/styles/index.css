@@ -16,18 +16,18 @@
 }
 
 .modal-window__inner,
-.form__input_email{
+.form-input_email{
   min-width: 280px;
   width: 100%;
   max-width: 450px;
 }
 
 
-.form__input_email{
+.form-input_email{
   padding-bottom: 10px;
 }
 .form__input_password label.input,
-.form__input_email label.input{
+.form-input_email label.input{
   position: relative;
   display: block;
   height: 40px;
@@ -46,7 +46,7 @@ label.input svg{
 }
 
 .form__input_password label.input input,
-.form__input_email label.input input{
+.form-input_email label.input input{
     height: inherit;
     width: inherit;
     margin: 0;
@@ -54,8 +54,18 @@ label.input svg{
     padding: 0 25px;
     border-radius: 8px;
 }
-.form__input_email label.input svg path{
+.form-input_email label.input svg path{
   stroke: rgba(255, 255, 255, 0.5);
   fill: none;
+}
+
+/* ERROR MESSAGE */
+
+div.hidden.validator-hint {
+  display: none;
+  color: red;
+  background: rgb(255, 255, 255, 0.5);
+  text-align: center;
+  vertical-align: middle;
 }
 

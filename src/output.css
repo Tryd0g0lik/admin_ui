@@ -6,6 +6,9 @@
 .z-1 {
   z-index: 1;
 }
+.block {
+  display: block;
+}
 .hidden {
   display: none;
 }

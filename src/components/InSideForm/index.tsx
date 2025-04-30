@@ -20,7 +20,7 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
     </div>
     <div className="modal-window__inner form">
     <form>
-      <div className="form__input_email">
+        <div className="form-input_email">
         <label className="input validator">
           {/** FIELD OF EMAIL */}
           <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -35,9 +35,9 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
             </g>
             </svg>
-            <input type="email" placeholder="mail@site.com" required />
+            <input className="form-input_email__inser" type="email" placeholder="mail@site.com" required />
           </label>
-          <div className="validator-hint hidden">Enter valid email address</div>
+          <div className=" validator-hint hidden">Enter valid email address</div>
         </div>
         <div className="form__input_password">
           {/** FIELD OF PASSWORD */}
@@ -57,14 +57,16 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
               </g>
             </svg>
             <input
+              className="form__input_password__inser"
               type="password"
               required
               placeholder="Password"
               minLength={8}
               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-              title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
+              title="Должно быть более 8 символов, включая цифры, строчные буквы, заглавные буквы"
             />
           </label>
+
           <p className="validator-hint hidden">
             Must be more than 8 characters, including
             <br />At least one number <br />At least one lowercase letter <br />At least one uppercase letter
