@@ -14,11 +14,18 @@ const router_ = createBrowserRouter([
       </div>
     )
   }
-]);
+],
+  {
+    future: {
+      v7_relativeSplatPath: true,
+    }
+  }
+);
 
 const pagesProvider = (
   <RouterProvider router={router_} future={{
-    v7_startTransition: true
+
+    v7_startTransition: true,
   }} />
 );
 

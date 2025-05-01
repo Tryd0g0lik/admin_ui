@@ -6,19 +6,16 @@ import React, { JSX, useEffect } from "react";
 import { User } from "src/interfesaces";
 import taskStylesOfModalWindow from "src/components/NavBar/tasks/stylesModalWindow";
 import { handlerButtonLoginOut } from "src/components/NavBar/hamdlers/handlerBotton";
-import taskRequestToServer from "src/components/NavBar/tasks/requestServer";
+
 import "./styles/index.css";
 // type Dispatcher = { dispetcher: ReturnType<typeof useDispatch> };
 type userStateConstantes = { userstate: User };
 
 export function NavBarFC(props: userStateConstantes): JSX.Element {
-  const { userstate } = { ...props };
+  const { userstate, } = { ...props };
   const userStatus = userstate["status"];
   console.log("STATE EMAIL: ", userstate["email"]);
 
-  useEffect(() => {
-    taskRequestToServer(userstate);
-  }, [userstate]);
   return (<>
     <header onClick={(e: React.MouseEvent) => {
       const resultBoolean = handlerButtonLoginOut(e);

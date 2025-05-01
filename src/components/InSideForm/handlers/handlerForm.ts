@@ -1,7 +1,7 @@
 import React from "react";
 import { User } from "src/interfesaces";
 import { initialState } from "src/reduxes/features/userstate/userSlice";
-export function handlerInputFileds(e: React.KeyboardEvent, setuserdata: CallableFunction): boolean {
+export function handlerInputFileds(e: React.KeyboardEvent, setuserdata: CallableFunction): boolean | User {
   /**
    * This is the handler for the input fields.
    * @param e : React.KeyboardEvent
@@ -49,7 +49,7 @@ export function handlerInputFileds(e: React.KeyboardEvent, setuserdata: Callable
     user['password'] = inputDataPassword.value;
     if (setuserdata && typeof setuserdata === 'function') {
       (setuserdata as (user: User) => void)(user);
-      return true;
+      return user;
     } else {
       console.error("[handlerInputFileds]: The callback from useState is not defined!");
       return false;

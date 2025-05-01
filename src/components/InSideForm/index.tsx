@@ -1,7 +1,19 @@
 import React, { JSX } from "react";
 import { handlerInputFileds } from "src/components/InSideForm/handlers/handlerForm";
 import "./styles/index.css";
+import taskRequestToServer from "src/components/NavBar/tasks/requestServer";
+import { User } from "src/interfesaces";
 type UseStateCallBack = { setuserdata: CallableFunction };
+// const task3 = async (userstate: User, callback: CallableFunction) => {
+//   const result = await taskRequestToServer(userstate);
+//   if (typeof result === "boolean" && !result) {
+//     return false;
+//   } else if (typeof result === "object") {
+//     callback(() => result);
+//   }
+
+// };
+// Promise.all([task3(userstate, callback)]);
 export function InSideFormFC(props: UseStateCallBack): JSX.Element {
 /**
  * This is a modal-window component. 
@@ -18,10 +30,22 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
       {/** HEADER OF FORM */}
       <h2>Подтвердите профиль</h2>
     </div>
-    <div onKeyDown={(e: React.KeyboardEvent) => { handlerInputFileds(e, setuserdata); }
-      /** This is the event listener on the input filelds from modal window.
-       * then will CHANGE THE setUserData FROM MainFC COMPONENT */} className="modal-window__inner form">
-    <form>
+    <div onKeyDown={async (e: React.KeyboardEvent) => {
+      const result = handlerInputFileds(e, setuserdata);
+      if (typeof result === "object") {
+        const res = await taskRequestToServer(result as User);
+        if (typeof res === "boolean" && !res) {
+          return false;
+        } else if (typeof res === "object") {
+          /** Update the use state */
+          (setuserdata as (res: User) => void)(res);
+        }
+      }
+
+    }}>
+      {/** This is the event listener on the input filelds from modal window.
+       * then will CHANGE THE setUserData FROM MainFC COMPONENT */}
+      <form className="modal-window__inner form">
         <div className="form-input_email">
         <label className="input validator">
           {/** FIELD OF EMAIL */}
@@ -37,7 +61,11 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
             </g>
             </svg>
-            <input className="form-input_email__inser" type="email" placeholder="mail@site.com" required />
+            <input
+              className="form-input_email__inser"
+              type="email" placeholder="mail@site.com"
+              required
+              autoComplete="username" />
           </label>
           <div className=" validator-hint hidden">Enter valid email address</div>
         </div>
@@ -66,7 +94,8 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
               minLength={8}
               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               title="Должно быть более 8 символов, включая цифры, строчные буквы, заглавные буквы"
-              autoCapitalize="current-password" 
+              autoCapitalize="off"
+              autoComplete="current-password"
             />
           </label>
 
@@ -75,8 +104,8 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
             <br />At least one number <br />At least one lowercase letter <br />At least one uppercase letter
           </p>
         </div>
-    </form>
-
+      </form>
     </div>
   </div>);
+
 }

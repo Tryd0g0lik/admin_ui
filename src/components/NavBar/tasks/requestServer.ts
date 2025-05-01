@@ -2,6 +2,7 @@ import { handlerRequstTokenGenerate } from "src/components/NavBar/hamdlers/handl
 import { handlerRequestTokenRefresh } from "src/components/NavBar/hamdlers/handlerRequestRefresh";
 import { User, TokenGenerate } from "src/interfesaces";
 import taskCookieUpdate from "./cookieUpdate";
+import { UserStatus, UserPrivaleges } from "src/interfesaces";
 
 // let LiveInterval: NodeJS.Timeout;
 // async function handlerRequstTokenRefresh() {
@@ -18,7 +19,6 @@ function checkLiveOfCoockie() {
   
   const cookies: string[] = document.cookie.split(';');
   let accessToken;
-  const count = 0;
   /* Checking the 'access_token=' substring. */
   for (let i = 0; i < cookies.length; i++) {
     if (cookies[i].trim() && (cookies[i].trim()).startsWith("access_token=")) {
@@ -37,16 +37,22 @@ function checkLiveOfCoockie() {
   return false;
 }
 
-async function taskRequestToServer(userstate: User) {
+/**
+ * 
+ * @param userstate have template of ```json
+ * {
+  "email": string,
+  "password": string,
+  "status": number,
+  "privaleges": number,
+  "token": string
+}
+  ```
+ * @returns false if we the userstate not updated. or new_userstate.;
+ */
+async function taskRequestToServer(userstate: User): Promise<User | boolean> {
+  const new_userstate = Object.assign({}, userstate);
   if (userstate["email"].length > 0 && userstate["email"].length > 0) {
-    /**
-     * Получаем userstate - состояние пользователя
-     * Если аноним то часть менб скрыто
-     * Если админ то все меню открыто
-     * остальных не трогаем пока
-     * 
-     * ++ Обработчик нажатия кнопки входа
-     */
     /**
      * Search the tokens in cookie.
      */
@@ -56,11 +62,15 @@ async function taskRequestToServer(userstate: User) {
       // Updats of cookie from data of Token - Generate.
       if ((result as TokenGenerate).access_expired_at > 0) {
         taskCookieUpdate(result as TokenGenerate);
-        console.log('Вы вошли в систему', userstate["status"]);
+        /** Update the user properties */
+        new_userstate.privaleges = [UserPrivaleges.PRIVALEGES_SUPER_ADMIN];
+        new_userstate.status = UserStatus.STATUS_SUPER_ADMIN;
+        return new_userstate;
       } else {
         /* These are incorrect tokens. Repeat the request. */
         console.error("[taskRequestToServer]: Error. Somethins what wrong to the generate's tokens!");
         setTimeout(() => taskRequestToServer(userstate), 600000);
+        return false;
       }
 
     } else if (typeof result === 'string') {
@@ -78,16 +88,23 @@ async function taskRequestToServer(userstate: User) {
       if ((result as TokenGenerate).access_expired_at > 0) {
         // Updats of cookie from data of Token - Refresh.
         taskCookieUpdate(result as TokenGenerate);
-        console.log('Вы вошли в систему', userstate["status"]);
+        /** Update the user properties */
+        new_userstate.privaleges = [UserPrivaleges.PRIVALEGES_SUPER_ADMIN];
+        new_userstate.status = UserStatus.STATUS_SUPER_ADMIN;
+        console.log('Вы вошли в систему', new_userstate["status"]);
+
+        return new_userstate;
       } else {
         /* These are incorrect tokens. Repeat the request. */
         console.error("[taskRequestToServer]: Error. Somethins what wrong to the refresh tokens!");
         setTimeout(() => taskRequestToServer(userstate), 60000);
+        return false;
       }
     }
   } else {
     console.log('Вы не вошли в систему');
   }
+  return false;
 }
 
 export default taskRequestToServer;
