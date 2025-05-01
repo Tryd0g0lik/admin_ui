@@ -1,16 +1,16 @@
 import React from "react";
-import { UserPrivaleges, UserStatus, User } from "src/interfesaces";
-import { initialState as state } from "src/reduxes/features/userstate/userSlice";
-export function handlerInputFileds(e: React.KeyboardEvent, setuserdata: CallableFunction) {
-  const user = {
-    "email": "",
-    "password": "",
-    "status": UserStatus.STATUS_ANONYMOUSUSER,
-    "privaleges": [UserPrivaleges.PRIVALEGES_ANONYMOUS],
-    "token": ""
-  };
+import { User } from "src/interfesaces";
+import { initialState } from "src/reduxes/features/userstate/userSlice";
+export function handlerInputFileds(e: React.KeyboardEvent, setuserdata: CallableFunction): boolean {
+  /**
+   * This is the handler for the input fields.
+   * @param e : React.KeyboardEvent
+   * @param setuserdata : CallableFunction. It is callback from the useState of React.
+   * @return boolean.
+   */
+  const user: User = Object.assign({}, initialState);
     if (!e.type || (
-      (e.type?.toLowerCase() !== 'keydown') || (
+      (e.type && e.type.toLowerCase() !== 'keydown') || (
         e.type.toLowerCase() === 'keydown' && !(
           e.key
         ) || (e.type.toLowerCase() === 'keydown' && (
@@ -18,9 +18,10 @@ export function handlerInputFileds(e: React.KeyboardEvent, setuserdata: Callable
         )
         )
       ))) {
-      console.error("[newHahandlerInputFiledsndler]: The 'keydown' event has incorrect type!");
+      console.warn("[newHahandlerInputFiledsndler]: The 'keydown' event has incorrect type!");
       return false;
     }
+  try {
     /** GET THE INPUT FIELD AND GET THE DATA FROM INPUT FIELD */
     const inputDataEmail = ((document.getElementsByClassName("form-input_email__inser") as HTMLCollectionOf<HTMLInputElement>)[0]);
     const inputDataPassword = ((document.getElementsByClassName("form__input_password__inser") as HTMLCollectionOf<HTMLInputElement>)[0]);
@@ -44,9 +45,17 @@ export function handlerInputFileds(e: React.KeyboardEvent, setuserdata: Callable
       return false;
     }
     /** CHANGE THE setUserData FROM MainFC COMPONENT */
-  user['email'] = inputDataEmail.value;
-  user['password'] = inputDataPassword.value;
-  setuserdata(user);
-    return true;
+    user['email'] = inputDataEmail.value;
+    user['password'] = inputDataPassword.value;
+    if (setuserdata && typeof setuserdata === 'function') {
+      (setuserdata as (user: User) => void)(user);
+      return true;
+    } else {
+      console.error("[handlerInputFileds]: The callback from useState is not defined!");
+      return false;
+    }
+  } catch (error) {
+    console.error("[handlerInputFileds]: ", error);
+    return false;
+  }
   };
-

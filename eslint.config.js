@@ -4,16 +4,16 @@
 const eslintPluginReact = require('eslint-plugin-react');
 const eslintPluginTypeScript = require('@typescript-eslint/eslint-plugin');
 const eslintPluginPrettier = require('eslint-plugin-prettier');
-const eslintPluginStylistic = require("@stylistic/eslint-plugin");
 const eslintPlugImport = require("eslint-plugin-import");
 const eslintPluginN = require("eslint-plugin-n");
 const eslintPluginPromise = require("eslint-plugin-promise");
 const TypescriptEslintParser = require('@typescript-eslint/parser');
 const eslintPluginReactHooks = require('eslint-plugin-react-hooks');
 const stylisticEslintPlugin = require('@stylistic/eslint-plugin');
+const eslint = require('@eslint/js');
+const tseslint = require('typescript-eslint');
 // const stylisticTs = require('@stylistic/eslint-plugin-ts');
 module.exports = {
-
 
   languageOptions: {
     ecmaVersion: 'latest', // Версия ECMAScript
@@ -23,7 +23,7 @@ module.exports = {
       // node: true, // Глобальные переменные Node.js
       // browser: true,
       commonjs: true,
-      es2021: true,
+      es2022: true,
     },
     parser: TypescriptEslintParser, // Парсер для TypeScript
     parserOptions: {
@@ -39,30 +39,43 @@ module.exports = {
   },
 
   plugins: {
-
+    '@eslint/js': eslint,
+    'typescript-eslint': tseslint,
+    'eol-last': ['error', 'always'],
     'react': eslintPluginReact,
     prettier: eslintPluginPrettier,
     promise: eslintPluginPromise,
     'react-hooks': eslintPluginReactHooks,
     '@typescript-eslint': eslintPluginTypeScript,
-    '@stylistic': eslintPluginStylistic,
+    '@stylistic': stylisticEslintPlugin,
     'import': eslintPlugImport,
     'eslintpluginn': eslintPluginN,
-
-    // '@stylistic/js': js,
-    // '@stylistic/eslint-plugin-ts': stylisticEslintPluginTS,
-    // '@stylistic/jsx',
     '@stylistic/eslint-plugin-plus': stylisticEslintPlugin,
-  // '@stylistic/ts': stylisticTs,
   },
+
   settings: {
     "import/resolver": {
       node: {
         extensions: [".js", ".jsx", ".ts", ".tsx"],
       },
     },
+    react: {
+      version: 'detect'
+    }
   },
   rules: {
+    // Запятую  вконце * нельзя ставить
+    // "comma-dangle": ["error", {
+    //   "arrays": "never",
+    //   "objects": "never",
+    //   "imports": "never",
+    //   "exports": "never",
+    //   "functions": "never"
+    // }],
+    //  последние строки в не пустом файле
+    'eol-last': ['error', 'always'],
+    // количество последних и первых строк в не пустом файле
+    'no-multiple-empty-lines': ['error', { max: 1, maxBOF: 0, maxEOF: 1 }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     quotes: 'off',
@@ -75,8 +88,8 @@ module.exports = {
     ],
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error', {
-      ignoreTypeValueShadow: true,
-      ignoreFunctionTypeParameterNameValueShadow: true,
+      // ignoreTypeValueShadow: true,
+      // ignoreFunctionTypeParameterNameValueShadow: true,
     }],
     '@typescript-eslint/space-before-function-paren': 'off',
     '@stylistic/space-before-function-paren': ['error', {
@@ -85,24 +98,33 @@ module.exports = {
     }],
     'no-new': 'off',
     'no-new-wrappers': 'off',
-    '@typescript-eslint/strict-boolean-expressions': 'off',
-    '@typescript-eslint/semi': 'off',
+
+    '@stylistic/member-delimiter-style': ['error', {
+      "multiline": {
+        "delimiter": "comma",
+        "requireLast": false
+      },
+      "singleline": {
+        "delimiter": "comma",
+        "requireLast": false
+      }
+    }],
     '@stylistic/semi': ['error', 'always', { omitLastInOneLineBlock: false }],
     'semi-spacing': ['error', { before: false, after: true }],
     '@stylistic/semi-style': ['error', 'last'],
-    '@typescript-eslint/semi': 'off',
-    'react/display-name': 'off',
+
+
     'indent': 'off',
     // '@stylistic/ts/indent': ['error', 2],
     '@typescript-eslint/no-explicit-any': ['error', { fixToUnknown: false, ignoreRestArgs: true }],
-    '@typescript-eslint/no-var-requires': 'off',
-    '@typescript-eslint/consistent-type-imports': 'off',
-    '@typescript-eslint/no-unnecessary-condition': 'off',
-    "no-unused-vars": 'off',
-  '@typescript-eslint/await-thenable': 'off',
-  '@typescript-eslint/no-unused-vars': 'off',
-  '@typescript-eslint/no-unsafe-assignment': 'off',
-  '@typescript-eslint/no-unsafe-call': 'off',
+    '@typescript-eslint/no-var-requires': 'error',
+
+
+
+    '@typescript-eslint/await-thenable': 'error',
+
+    '@typescript-eslint/no-unsafe-assignment': 'error',
+    '@typescript-eslint/no-unsafe-call': 'error',
 
   // TypeScript - три разделителя между элементами в интерфейсах и псевдонимах типов
     // '@stylistic/ts/member-delimiter-style': [
@@ -115,7 +137,7 @@ module.exports = {
     // ],
 
   defaultParamLast: 'off',
-  '@typescript-eslint/default-param-last': 'off',
+    '@typescript-eslint/default-param-last': 'error',
 
   '@typescript-eslint/prefer-nullish-coalescing': 'off', //["error", { ignoreTernaryTests: true }]
 },

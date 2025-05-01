@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { InSideFormFC } from "src/components/InSideForm";
 import { NavBarFC } from "src/components/NavBar";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { User } from "src/interfesaces";
 
 import { initialState } from "src/reduxes/features/userstate/userSlice";
+const user: User = Object.assign({}, initialState);
 export function MainFC(): React.JSX.Element {
-  const [userData, setUserData] = useState<User>(initialState);
-  const dispatch = useDispatch();
+  const [userData, setUserData] = useState<User>(user);
+  // const dispatch = useDispatch();
   /**
    * userstate данные от userData. 
    * В плане они обновляются по redux-у

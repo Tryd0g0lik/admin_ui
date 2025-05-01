@@ -104,7 +104,7 @@
     "tailwindcss": "^4.1.4",
     "terser-webpack-plugin": "^5.3.11",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
-    "typescript-eslint": "^8.3.0",
+    "typescript-eslint": "^8.31.1",
     "url-loader": "^4.1.1",
     "webpack": "^5.94.0",
     "webpack-bundle-tracker": "^3.1.0",

@@ -1,7 +1,6 @@
 /**
  * src/interfesaces.ts
  */
-import React from "react";
 
 /* NEW TYPE REDUX */
 /**
@@ -30,19 +29,23 @@ export enum UserPrivaleges {
  * password: string  of user
  */
 interface UserSecretData {
-  email: string
+  email: string,
   password: string
 }
 
+export interface TokenGenerate {
+  "access_token": string,
+  "refresh_token": string,
+  "access_expired_at": number,
+  "refresh_expired_at": number
+}
 /** * 
  * status: ADMIN, USER, SUPER_ADMIN, ANONYMOUSUSER of UserStatus
  * privaleges: COMMENT, ALL, READING, NoN of UserPrivaleges
  * token: string  is secret key of server
  */
 export interface User extends UserSecretData {
-  status: string // of UserRole
-  privaleges: string[] // NoN, All, Reading, Comment
+  status: string, // of UserRole
+  privaleges: string[], // NoN, All, Reading, Comment
   token?: string
 }
-
-

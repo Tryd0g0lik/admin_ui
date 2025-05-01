@@ -1,5 +1,6 @@
-
-
+/**
+ * src\components\NavBar\tasks\stylesModalWindow.ts
+ */
 async function taskChangeStylesOfModalWindow(): Promise<boolean> {
   /**
    * The modal window has the 'display: none' property by default value.
@@ -14,15 +15,10 @@ async function taskChangeStylesOfModalWindow(): Promise<boolean> {
     return false;
   }
 
-  /** NEW HANDLER WILL ADD FOR THE EVENT CLICK ON THE BUTTON FROM THE FORM MODAL WINDOW */
-  // (divHTml[0] as HTMLDivElement).removeEventListener("keydown", newHandler);
-  // (divHTml[0] as HTMLDivElement).addEventListener("keydown", newHandler);
   /** CHNANGE OF THE STYLE */
   console.log(`TEST: CHNANGE OF THE STYLE`);
   (divHTml[0] as HTMLDivElement).style.display = "Flex";
   return true;
 }
-
-
 
 export default taskChangeStylesOfModalWindow;

@@ -1,4 +1,4 @@
-import React, { JSX, useState, useEffect } from "react";
+import React, { JSX } from "react";
 import { handlerInputFileds } from "src/components/InSideForm/handlers/handlerForm";
 import "./styles/index.css";
 type UseStateCallBack = { setuserdata: CallableFunction };
@@ -66,6 +66,7 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
               minLength={8}
               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               title="Должно быть более 8 символов, включая цифры, строчные буквы, заглавные буквы"
+              autoCapitalize="current-password" 
             />
           </label>
 
