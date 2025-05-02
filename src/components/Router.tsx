@@ -4,14 +4,18 @@
 import React from "react";
 import {createBrowserRouter, RouterProvider } from "react-router-dom";
 import { MainFC } from "src/components/Main";
-
+import { PostFC } from "src/components/Posts";
 const router_ = createBrowserRouter([
   {
     path: "/",
     element: (
-
-        <MainFC />
-
+      <MainFC />
+    )
+  },
+  {
+    path: "posts/",
+    element: (
+      <PostFC />
     )
   }
 ],

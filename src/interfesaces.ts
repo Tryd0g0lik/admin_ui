@@ -49,3 +49,6 @@ export interface User extends UserSecretData {
   privaleges: string[], // NoN, All, Reading, Comment
   token?: string
 }
+
+/** Type for HeaderFC's props */
+export type HendlerPropType = { userstatus: string, head: string | undefined };

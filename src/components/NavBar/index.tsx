@@ -1,29 +1,28 @@
 /**
  * src\components\NavBar\index.tsx
  */
-import React, { JSX, useState, useEffect } from "react";
-import { User, UserStatus } from "src/interfesaces";
+import React, { JSX, useState, useEffect, FunctionComponent, ReactNode } from "react";
+import { User, HendlerPropType } from "src/interfesaces";
 import taskStylesOfModalWindow from "src/components/NavBar/tasks/stylesModalWindow";
 import { handlerButtonLoginOut } from "src/components/NavBar/hamdlers/handlerButton";
+import { Header01FC } from "../Header";
 import "./styles/index.css";
 type userStateConstantes = { userstate: User };
+// , ChildComponent: ReturnType<(props: HendlerPropType) => JSX.Element>
 
 export function NavBarFC(props: userStateConstantes): JSX.Element {
+  const { userstate } = { ...props };
   /** The variable for status of user */
-  const [userstatus, setUserstatus] = useState<string>(UserStatus.STATUS_ANONYMOUSUSER);
-
-  const { userstate, } = { ...props };
+  const [userstatus, setUserstatus] = useState<string>(userstate["status"]);
 
   useEffect(() => {
     console.log("STATE EMAIL: ", userstate["email"] ? userstate["email"] : "email NON",
-      userstate["status"] ? userstate["status"] : "status NON");
+      userstate["status"] ? userstate["status"] : "ANONYMOUSUSER");
     /* localStorage */
     const ls = localStorage.getItem('user');
     if (typeof ls === 'string' && ls.length > 0) {
       const user = JSON.parse(ls) as User;
       setUserstatus(user.status);
-    } else {
-      setUserstatus(userstate["status"]);
     }
 
   }, [userstatus, userstate]);
@@ -53,9 +52,7 @@ export function NavBarFC(props: userStateConstantes): JSX.Element {
                 <><li>
                   <a>Администратор</a>
                   <ul className="p-2">
-                    <li><a>Добавление поста</a></li>
-                    <li><a>Редактирование поста</a></li>
-                    <li><a>Удаление поста</a></li>
+                    <li><a href="/posts/" title="Ваш пост">Пост</a></li>
                   </ul>
                 </li><li><a>Выход</a></li></>
               )}
@@ -72,9 +69,7 @@ export function NavBarFC(props: userStateConstantes): JSX.Element {
                 <details>
                   <summary>Администратор</summary>
                   <ul className="p-2 ">
-                    <li><a>Добавление поста</a></li>
-                    <li><a>Редактирование поста</a></li>
-                    <li><a>Удаление поста</a></li>
+                    <li><a href="/posts/" title="Ваш пост">Пост</a></li>
                   </ul>
                 </details>
               </li></>
@@ -87,22 +82,6 @@ export function NavBarFC(props: userStateConstantes): JSX.Element {
       </div>
     </div>
     </header>
-    <section className="h1" >
-      {userstatus}
-      {!userstatus.includes("ANONYMOUSUSER") && (
-        <>
-          <h1 className="">
-            {userstatus === "SUPER_ADMIN" ? "Вы вошли в систему как Администратор" : `${userstatus} - Вы вошли в профиль`}
-          </h1>
-        </>
-      )}
-      {
-        userstatus.includes("ANONYMOUSUSER") && (
-          <h1 className="">
-            Подтвердите свой профиль.
-          </h1>
-        )
-      }
-    </section>
+
   </>);
 } 
