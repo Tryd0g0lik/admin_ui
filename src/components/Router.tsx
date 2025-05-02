@@ -9,9 +9,9 @@ const router_ = createBrowserRouter([
   {
     path: "/",
     element: (
-      <div>
+
         <MainFC />
-      </div>
+
     )
   }
 ],

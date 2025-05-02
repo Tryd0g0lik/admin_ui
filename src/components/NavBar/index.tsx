@@ -4,7 +4,7 @@
 import React, { JSX, useState, useEffect } from "react";
 import { User, UserStatus } from "src/interfesaces";
 import taskStylesOfModalWindow from "src/components/NavBar/tasks/stylesModalWindow";
-import { handlerButtonLoginOut } from "src/components/NavBar/hamdlers/handlerBotton";
+import { handlerButtonLoginOut } from "src/components/NavBar/hamdlers/handlerButton";
 import "./styles/index.css";
 type userStateConstantes = { userstate: User };
 
@@ -71,7 +71,7 @@ export function NavBarFC(props: userStateConstantes): JSX.Element {
               <><li>
                 <details>
                   <summary>Администратор</summary>
-                  <ul className="p-2">
+                  <ul className="p-2 ">
                     <li><a>Добавление поста</a></li>
                     <li><a>Редактирование поста</a></li>
                     <li><a>Удаление поста</a></li>
@@ -91,14 +91,14 @@ export function NavBarFC(props: userStateConstantes): JSX.Element {
       {userstatus}
       {!userstatus.includes("ANONYMOUSUSER") && (
         <>
-          <h1 className="text-3xl font-bold underline pb-8">
+          <h1 className="">
             {userstatus === "SUPER_ADMIN" ? "Вы вошли в систему как Администратор" : `${userstatus} - Вы вошли в профиль`}
           </h1>
         </>
       )}
       {
         userstatus.includes("ANONYMOUSUSER") && (
-          <h1 className="text-3xl font-bold underline pb-8">
+          <h1 className="">
             Подтвердите свой профиль.
           </h1>
         )

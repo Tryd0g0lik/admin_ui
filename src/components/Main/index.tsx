@@ -7,6 +7,7 @@ import { NavBarFC } from "src/components/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from 'src/reduxes/store';
 import { User } from "src/interfesaces";
+import { handlerButtonExitFC } from "src/components/Main/nabdler/handlerButtonExit";
 
 export function MainFC(): React.JSX.Element {
   const storeuserstate = useSelector((state: RootState) => state.userstate);
@@ -17,12 +18,11 @@ export function MainFC(): React.JSX.Element {
   const userdata = { "setuserdata": setUserData, reduxDispatch: dispatch };
   useEffect(() => {
     setUserData(storeuserstate);
-    console.log("1111111111111111", userData);
   }, [storeuserstate, userData]);
   return (
-    <>
+    <div onClick={handlerButtonExitFC}>
       <NavBarFC {...userstate} />
       <InSideFormFC {...userdata} />
-    </>
+    </div>
   );
 }

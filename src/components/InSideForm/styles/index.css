@@ -69,3 +69,27 @@ div.hidden.validator-hint {
   vertical-align: middle;
 }
 
+
+/* EXIT - BUTTON*/
+.modal-window>div:nth-child(2) {
+  padding-top: 30px;
+  position: relative;
+}
+
+.modal-window .modal-window_button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0px;
+  background-color: none;
+  min-height: 20px;
+  max-height: 20px;
+}
+
+.modal-window .modal-window_button,
+.modal-window a.modal-window_button__exit {
+  min-height: 20px;
+  max-height: 20px;
+  line-height: 1;
+  vertical-align: top;
+}

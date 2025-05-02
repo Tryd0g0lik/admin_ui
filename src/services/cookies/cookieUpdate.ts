@@ -1,7 +1,10 @@
+/**
+ * src\services\cookies\cookieUpdate.ts
+ */
 import { TokenGenerate } from "src/interfesaces";
 
 /**
- * src\services\cookies\cookieUpdate.ts
+ * 
  * 
  * Gets the result of the request and saves the data to the cookie. This result is from \
  *  the 'Token Refresh' and 'Token Generate'.
