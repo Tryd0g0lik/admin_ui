@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { UserPrivaleges, UserStatus, User } from "src/interfesaces";
-
+import { clearCoockie } from "src/services/cookies/clearCoockie";
+import { checkLiveOfCoockie } from "src/services/cookies/cookieCheckLive";
 // https://react-redux.js.org/introduction/getting-started
 // https://redux.js.org/tutorials/quick-start#create-a-redux-store
 // https://redux-toolkit.js.org/api/createSlice
@@ -14,15 +15,25 @@ const clearState = {
   "privaleges": [UserPrivaleges.PRIVALEGES_ANONYMOUS],
   "token": ""
 };
+/* CHECKR COOCKIE */
+const cookieBool = checkLiveOfCoockie();
+
+typeof cookieBool === "boolean" && !cookieBool ? localStorage.removeItem("user") : null;
 
 export let initialState: User = clearState;
+/** GET locaclStorage  */
 const cachState = localStorage.getItem("user");
-initialState = cachState ? JSON.parse(cachState) as User : initialState as User;
+
+initialState = cachState && cookieBool ? JSON.parse(cachState) as User : initialState as User;
 const userSlice = createSlice({
   name: 'userstate',
   initialState,
   reducers: {
-    resetSetUser: () => clearState,
+    resetSetUser: () => {
+      clearCoockie("access_token");
+      clearCoockie("refresh_token");
+      return clearState;
+    },
     setUser: (state, action: PayloadAction<User>) => {
 
       state = action.payload;

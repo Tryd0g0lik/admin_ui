@@ -17,13 +17,8 @@ export function handlerButtonLoginOut(e: React.MouseEvent): boolean {
     return false;
   }
   e.stopPropagation();
-  // const target = (e.target as HTMLAnchorElement);
-  // /** THE AUTO CHANGE BUTTON IS BELOW BY CLICK EVENT */
-  // if (target.outerText.toLowerCase() === 'вход') {
-  //   target.innerText = "Выход";
-  // } else if (target.outerText.toLowerCase() === 'выход') {
-  //   target.innerHTML = "Вход";
-  // }
-
+  if ((e.target as HTMLElement).outerText.toLowerCase() === 'выход') {
+    return false;
+  }
 return true;
 }

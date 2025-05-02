@@ -1,42 +1,10 @@
 import { handlerRequstTokenGenerate } from "src/components/NavBar/hamdlers/handlerRequest";
 import { handlerRequestTokenRefresh } from "src/components/NavBar/hamdlers/handlerRequestRefresh";
 import { User, TokenGenerate } from "src/interfesaces";
-import taskCookieUpdate from "./cookieUpdate";
+import { taskCookieUpdate } from "src/services/cookies/cookieUpdate";
 import { UserStatus, UserPrivaleges } from "src/interfesaces";
-
-// let LiveInterval: NodeJS.Timeout;
-// async function handlerRequstTokenRefresh() {
-//   const result = await handlerRequstTokenGenerate({ ...userstate });
-// };
-
-/**
-   * This function look the 'access_token=' substring in to the cookie.\
-   * If return true - this means that we have an 'access_token=' in to the cookie.\
-   * If return false - this means than we don not have the 'access_token=' and 'refresh_token=' in cookie.
-   * If return string - this means that we have only 'refresh_token=' in cookie and returned the value.
-   */
-function checkLiveOfCoockie() {
-  
-  const cookies: string[] = document.cookie.split(';');
-  let accessToken;
-  /* Checking the 'access_token=' substring. */
-  for (let i = 0; i < cookies.length; i++) {
-    if (cookies[i].trim() && (cookies[i].trim()).startsWith("access_token=")) {
-      /** If we received the 'access_token=' It is mean that break the cycle */
-      return true;
-    }
-  }
-  /** If we not received the 'access_token=' This means that we need to start to searching  the 'refresh_token=' substring */
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    if (cookie.startsWith("refresh_token=")) {
-      accessToken = cookie.substring("refresh_token=".length - 1);
-      return accessToken;
-    }
-  }
-  return false;
-}
-
+import { checkLiveOfCoockie } from "src/services/cookies/cookieCheckLive";
+import { clearCoockie } from "src/services/cookies/clearCoockie";
 /**
  * 
  * @param userstate - This is the object with user's data. It must have all properties of single user.
@@ -48,7 +16,7 @@ function checkLiveOfCoockie() {
   "privaleges": number,
   "token": string
 }
-  ```
+```
  * @returns false if we the userstate not updated. or new_userstate.;
  */
 async function taskRequestToServer(userstate: User): Promise<User | boolean> {
@@ -83,6 +51,9 @@ async function taskRequestToServer(userstate: User): Promise<User | boolean> {
         new_userstate.password = "";
         new_userstate.privaleges = [UserPrivaleges.PRIVALEGES_ANONYMOUS];
         new_userstate.status = UserStatus.STATUS_ANONYMOUSUSER;
+        /** COOKIE REMOVE */
+        clearCoockie("access_token");
+        clearCoockie("refresh_token");
         console.log('Вы не вошли в систему', new_userstate["status"]);
         return new_userstate;
       }
@@ -119,6 +90,9 @@ async function taskRequestToServer(userstate: User): Promise<User | boolean> {
         new_userstate.password = "";
         new_userstate.privaleges = [UserPrivaleges.PRIVALEGES_ANONYMOUS];
         new_userstate.status = UserStatus.STATUS_ANONYMOUSUSER;
+        /** COOKIE REMOVE */
+        clearCoockie("access_token");
+        clearCoockie("refresh_token");
         console.log('Вы не вошли в систему', new_userstate["status"]);
         return new_userstate;
       }

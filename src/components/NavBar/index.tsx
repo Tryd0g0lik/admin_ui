@@ -82,7 +82,8 @@ export function NavBarFC(props: userStateConstantes): JSX.Element {
           </ul>
       </div>
         <div className="button navbar-end">
-          <a className="button__click btn">Вход</a>
+          {userstatus && !userstatus.includes("ANONYMOUSUSER") && (<a className="button__click btn">Выход</a>)}
+          {userstatus && userstatus.includes("ANONYMOUSUSER") && (<a className="button__click btn">Вход</a>)}
       </div>
     </div>
     </header>

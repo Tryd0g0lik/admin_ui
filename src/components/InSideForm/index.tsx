@@ -18,13 +18,14 @@ import { RootState } from 'src/reduxes/store';
  * @param timeinterval - The NodeJS.Timeout from setInterval function.
  * @returns boolean; If get the true value, it mean we haw all Ok, or false
  */
-function updateCookieFromTimeInterval(res: boolean | User, setuserdata: CallableFunction, timeinterval: NodeJS.Timeout): boolean {
+function clearCach(res: boolean | User, setuserdata: CallableFunction, timeinterval: NodeJS.Timeout): boolean {
 
   if (typeof res === "boolean" && !res) {
     /** Delete the local storage */
     localStorage.removeItem("user");
     /** Clear the time interval */
     clearInterval(timeinterval);
+
     return false;
   } else if (typeof res === "object") {
     /** Create the local storage */
@@ -66,7 +67,7 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
         /** REDUX DISPATCH RECEIVE THE NEW SET USER */
         (reduxDispatch as (setUser: { payload: User, type: "userstate/setUser" }) => void)(setUser(result));
         let res = await taskRequestToServer(result as User);
-        updateCookieFromTimeInterval(res, setuserdata, timeIntervel);
+        clearCach(res, setuserdata, timeIntervel);
         /** SETINTERVAL FOR UPDATE THE USER TOKENS OF COOKIE */
         timeIntervel = setInterval(async () => {
           const ls = localStorage.getItem("user");
@@ -78,7 +79,7 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
             const user = JSON.parse(ls) as User;
             /** CHECKING AND SEND SINGLE REQUEST FROM GENERATE OR REFRESH */
             res = await (taskRequestToServer as (user: User) => Promise<User | boolean>)(user);
-            const answerBool = updateCookieFromTimeInterval(res, setuserdata, timeIntervel);
+            const answerBool = clearCach(res, setuserdata, timeIntervel);
             if (typeof answerBool === "boolean" && answerBool) {
 
               setUserstatus((res as User).status);
