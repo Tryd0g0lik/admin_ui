@@ -2,6 +2,7 @@
 **Note**: *В силу ограниченных действий и событий образ пользователя собирается через* \
 *"`Object`". ООП не используется.*
 
+<<<<<<< HEAD
 Любой пользователь попадая на страниу арр получает статус "`ANONYMOUSUSER`" и привелегии "`NoN`".\
 ```ts
 import { UserPrivaleges, UserStatus, User } from "src/interfesaces";
@@ -64,3 +65,20 @@ import { UserPrivaleges, UserStatus, User } from "src/interfesaces";
 ## Комментарии
 "Auth", исходя из описания - просто авторизация, а "Profile" вероятно переходим на страницу пользователя.\
 Ошибку "`CORS`" исправило удаление "`headers`" из настройки запроса (что оказалось не тепичным для меня совершая POST запрос).
+=======
+Ошибок, в настройке запроса на серве не вижу.
+
+Но сервер меня не провпускает\
+```console
+127.0.0.1/:1 Access to fetch at 'http://rest-test.machineheads.ru/auth/token-generate' from origin 'http://127.0.0.1:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+```
+Postman сегодня вовсе отвечает
+```json
+{
+    "name": "Method Not Allowed",
+    "message": "Method Not Allowed. This URL can only handle the following request methods: POST.",
+    "code": 0,
+    "status": 405
+}
+```
+>>>>>>> aa07fb5eed66283cc5b0806cb36c7c170ea3be73

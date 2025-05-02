@@ -37,6 +37,7 @@ export async function handlerRequstTokenGenerate(props: User): Promise<TokenGene
   const formData = new FormData();
   formData.append("email", email);
   formData.append("password", password);
+
   try {
     const response = await fetch("https://rest-test.machineheads.ru/auth/token-generate", {
       method: "POST",
