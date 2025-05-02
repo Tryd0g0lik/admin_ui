@@ -1,5 +1,5 @@
 import React from "react";
-
+import { clearCoockie } from "src/services/cookies/clearCoockie";
 /**
  * This handler is  listenning the click event by button \
  * from the <header> tag.\
@@ -18,6 +18,10 @@ export function handlerButtonLoginOut(e: React.MouseEvent): boolean {
   }
   e.stopPropagation();
   if ((e.target as HTMLElement).outerText.toLowerCase() === 'выход') {
+    localStorage.removeItem('user');
+    clearCoockie("access_token");
+    clearCoockie("refresh_token");
+    window.location.pathname = "/";
     return false;
   }
 return true;
