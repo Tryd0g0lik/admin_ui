@@ -39,7 +39,8 @@ function checkLiveOfCoockie() {
 
 /**
  * 
- * @param userstate have template of ```json
+ * @param userstate - This is the object with user's data. It must have all properties of single user.
+ * Properties of template is ```json
  * {
   "email": string,
   "password": string,
@@ -52,29 +53,43 @@ function checkLiveOfCoockie() {
  */
 async function taskRequestToServer(userstate: User): Promise<User | boolean> {
   const new_userstate = Object.assign({}, userstate);
-  if (userstate["email"].length > 0 && userstate["email"].length > 0) {
-    /**
-     * Search the tokens in cookie.
-     */
+  // if (userstate["email"].length > 0 && userstate["email"].length > 0) {
+  /** SEARCH THE TOKENS IN COOKIE. */
     let result: boolean | TokenGenerate | string = checkLiveOfCoockie();
-    if (typeof result === 'boolean' && !result) {
+  if (userstate["email"].length > 0 && userstate["email"].length > 0 &&
+    typeof result === 'boolean' && !result) {
+    /** The 'access_token' and 'refresh_token' are not founded in the cookie. 
+     * Now we neew to send the email and password to the server and receive the data ```json
+   **/
+    /** Clearing the LS */
+    localStorage.removeItem("user");
+  /** Sending the request (by generate token ) to the server and receiving the tokens. */
       result = await handlerRequstTokenGenerate({ ...userstate }) as TokenGenerate;
       // Updats of cookie from data of Token - Generate.
       if ((result as TokenGenerate).access_expired_at > 0) {
         taskCookieUpdate(result as TokenGenerate);
         /** Update the user properties */
+        new_userstate.email = "";
+        new_userstate.password = "";
         new_userstate.privaleges = [UserPrivaleges.PRIVALEGES_SUPER_ADMIN];
         new_userstate.status = UserStatus.STATUS_SUPER_ADMIN;
+        console.log('Вы вошли в систему', new_userstate["status"]);
         return new_userstate;
       } else {
         /* These are incorrect tokens. Repeat the request. */
         console.error("[taskRequestToServer]: Error. Somethins what wrong to the generate's tokens!");
         setTimeout(() => taskRequestToServer(userstate), 600000);
-        return false;
+        new_userstate.email = "";
+        new_userstate.password = "";
+        new_userstate.privaleges = [UserPrivaleges.PRIVALEGES_ANONYMOUS];
+        new_userstate.status = UserStatus.STATUS_ANONYMOUSUSER;
+        console.log('Вы не вошли в систему', new_userstate["status"]);
+        return new_userstate;
       }
 
     } else if (typeof result === 'string') {
-      /** The 'refresh_token' we is founded in the cookie. Now we neew to send the 'refresh_token' to the server and upgrade
+      /** The 'refresh_token' toke we founded in the cookie.\
+       *  Now we neew to send the 'refresh_token'  token to the server and upgrade
        * the data ```json
         {
           "access_token": string,
@@ -89,6 +104,8 @@ async function taskRequestToServer(userstate: User): Promise<User | boolean> {
         // Updats of cookie from data of Token - Refresh.
         taskCookieUpdate(result as TokenGenerate);
         /** Update the user properties */
+        new_userstate.email = "";
+        new_userstate.password = "";
         new_userstate.privaleges = [UserPrivaleges.PRIVALEGES_SUPER_ADMIN];
         new_userstate.status = UserStatus.STATUS_SUPER_ADMIN;
         console.log('Вы вошли в систему', new_userstate["status"]);
@@ -98,9 +115,13 @@ async function taskRequestToServer(userstate: User): Promise<User | boolean> {
         /* These are incorrect tokens. Repeat the request. */
         console.error("[taskRequestToServer]: Error. Somethins what wrong to the refresh tokens!");
         setTimeout(() => taskRequestToServer(userstate), 60000);
-        return false;
+        new_userstate.email = "";
+        new_userstate.password = "";
+        new_userstate.privaleges = [UserPrivaleges.PRIVALEGES_ANONYMOUS];
+        new_userstate.status = UserStatus.STATUS_ANONYMOUSUSER;
+        console.log('Вы не вошли в систему', new_userstate["status"]);
+        return new_userstate;
       }
-    }
   } else {
     console.log('Вы не вошли в систему');
   }

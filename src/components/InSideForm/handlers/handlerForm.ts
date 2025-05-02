@@ -1,14 +1,16 @@
 import React from "react";
+
 import { User } from "src/interfesaces";
-import { initialState } from "src/reduxes/features/userstate/userSlice";
-export function handlerInputFileds(e: React.KeyboardEvent, setuserdata: CallableFunction): boolean | User {
+
+export function handlerInputFileds(e: React.KeyboardEvent, setuserdata: CallableFunction, usestate: User): boolean | User {
   /**
    * This is the handler for the input fields.
    * @param e : React.KeyboardEvent
    * @param setuserdata : CallableFunction. It is callback from the useState of React.
    * @return boolean.
    */
-  const user: User = Object.assign({}, initialState);
+  // const storeuserstate = useSelector((state: RootState) => state.userstate);
+  const user: User = Object.assign({}, usestate);
     if (!e.type || (
       (e.type && e.type.toLowerCase() !== 'keydown') || (
         e.type.toLowerCase() === 'keydown' && !(

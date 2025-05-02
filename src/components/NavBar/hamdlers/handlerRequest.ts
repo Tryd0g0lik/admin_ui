@@ -20,6 +20,7 @@ export type ResultTokenType = typeof resultEmty;
  * If you key of response the "`refresh_expired_at`" or "`access_expired_at`" equals zero "`0`"\
  * this means that you have tokens is incorrect.\
  * Repeat the request and send the data of the form to the server again.
+ * @param props - Proporties of user;
  * @returns ```json
  * {
   "access_token": "",
@@ -41,10 +42,12 @@ export async function handlerRequstTokenGenerate(props: User): Promise<TokenGene
       method: "POST",
       body: formData
     });
+    /** RESPONSE IS NOT VALID */
     if (response.status !== 200) {
       return resultEmty;
 
     }
+    /** RESPONSE IS VALID */
     const result: TokenGenerate = await response.json() as TokenGenerate;
     return result;
 

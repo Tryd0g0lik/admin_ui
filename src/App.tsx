@@ -5,7 +5,7 @@ import React from "react";
 import { Provider } from 'react-redux';
 import {createRoot} from "react-dom/client";
 import { PagesRouter } from "src/components/Router";
-import store from "src/reduxes/store";
+import { store } from "src/reduxes/store";
 const rootHTML = document.querySelector("#root");
 // import "./App.css"
 

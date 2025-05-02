@@ -1,45 +1,92 @@
-import React, { JSX } from "react";
+/**
+ * src\components\InSideForm\index.tsx
+ */
+import React, { JSX, useState, useEffect } from "react";
 import { handlerInputFileds } from "src/components/InSideForm/handlers/handlerForm";
 import "./styles/index.css";
 import taskRequestToServer from "src/components/NavBar/tasks/requestServer";
-import { User } from "src/interfesaces";
-type UseStateCallBack = { setuserdata: CallableFunction };
-// const task3 = async (userstate: User, callback: CallableFunction) => {
-//   const result = await taskRequestToServer(userstate);
-//   if (typeof result === "boolean" && !result) {
-//     return false;
-//   } else if (typeof result === "object") {
-//     callback(() => result);
-//   }
+import { User, UserStatus } from "src/interfesaces";
+type UseStateCallBack = { setuserdata: CallableFunction, reduxDispatch: CallableFunction };
+import { setUser, resetSetUser } from "src/reduxes/features/userstate/userSlice";
+import { useSelector } from "react-redux";
+import { RootState } from 'src/reduxes/store';
 
-// };
-// Promise.all([task3(userstate, callback)]);
-export function InSideFormFC(props: UseStateCallBack): JSX.Element {
 /**
- * This is a modal-window component. 
- * It contains a form for the authentication action.
- * @param uaserData - This is function for received data from the form.
- * @return JSX.Element - The form in modal window.
+ * This function checks the usr's tokens/ response from the server.
+ * @param res - Response of taskRequestToServer function with type of boolean or User object;
+ * @param setuserdata - The useState callback of MainFC component. 
+ * @param timeinterval - The NodeJS.Timeout from setInterval function.
+ * @returns boolean; If get the true value, it mean we haw all Ok, or false
  */
+function updateCookieFromTimeInterval(res: boolean | User, setuserdata: CallableFunction, timeinterval: NodeJS.Timeout): boolean {
+
+  if (typeof res === "boolean" && !res) {
+    /** Delete the local storage */
+    localStorage.removeItem("user");
+    /** Clear the time interval */
+    clearInterval(timeinterval);
+    return false;
+  } else if (typeof res === "object") {
+    /** Create the local storage */
+    localStorage.setItem("user", JSON.stringify({ ...res }));
+    /** Update the user state */
+    (setuserdata as (res: User) => void)(res);
+    return true;
+  }
+  return false;
+};
+
+export function InSideFormFC(props: UseStateCallBack): JSX.Element {
+  /** The variable for status of user */
+  const [userstatus, setUserstatus] = useState<string>(UserStatus.STATUS_ANONYMOUSUSER);
+  const userstate = useSelector((state: RootState) => state.userstate);
+
   /**
-   * uaserData это callback function для получения данный и возврата в другие компоненты
+   * This is a modal-window component. 
+   * It contains a form for the authentication action.
+   * @return JSX.Element - The form in modal window.
    */
-  const { setuserdata } = { ...props };
+  let timeIntervel: NodeJS.Timeout;
+  useEffect(() => {
+    return () => {
+      userstatus === UserStatus.STATUS_ANONYMOUSUSER ? clearInterval(timeIntervel) : null;
+    };
+  }, [userstatus]);
+
+  const { setuserdata, reduxDispatch } = { ...props };
   return (<div className="modal-window">
     <div className="h2">
       {/** HEADER OF FORM */}
-      <h2>Подтвердите профиль</h2>
+
+      <h2>"Подтвердите профиль"</h2>
     </div>
     <div onKeyDown={async (e: React.KeyboardEvent) => {
-      const result = handlerInputFileds(e, setuserdata);
+      const result = handlerInputFileds(e, setuserdata, userstate);
       if (typeof result === "object") {
-        const res = await taskRequestToServer(result as User);
-        if (typeof res === "boolean" && !res) {
-          return false;
-        } else if (typeof res === "object") {
-          /** Update the use state */
-          (setuserdata as (res: User) => void)(res);
-        }
+        /** REDUX DISPATCH RECEIVE THE NEW SET USER */
+        (reduxDispatch as (setUser: { payload: User, type: "userstate/setUser" }) => void)(setUser(result));
+        let res = await taskRequestToServer(result as User);
+        updateCookieFromTimeInterval(res, setuserdata, timeIntervel);
+        /** SETINTERVAL FOR UPDATE THE USER TOKENS OF COOKIE */
+        timeIntervel = setInterval(async () => {
+          const ls = localStorage.getItem("user");
+          if (typeof ls !== "string" || (typeof ls === "string" && ls.length === 0)) {
+            clearInterval(timeIntervel);
+            setUserstatus(UserStatus.STATUS_ANONYMOUSUSER);
+            (reduxDispatch as (resetSetUser: { payload: undefined, type: "userstate/resetSetUser" }) => void)(resetSetUser());
+          } else if (typeof ls === "string" && ls.length > 0) {
+            const user = JSON.parse(ls) as User;
+            /** CHECKING AND SEND SINGLE REQUEST FROM GENERATE OR REFRESH */
+            res = await (taskRequestToServer as (user: User) => Promise<User | boolean>)(user);
+            const answerBool = updateCookieFromTimeInterval(res, setuserdata, timeIntervel);
+            if (typeof answerBool === "boolean" && answerBool) {
+
+              setUserstatus((res as User).status);
+              /** REDUX DISPATCH RECEIVE THE NEW SET USER */
+              (reduxDispatch as (setUser: { payload: User, type: "userstate/setUser" }) => void)(setUser(res as User));
+            }
+          }
+        }, 2591400);
       }
 
     }}>
