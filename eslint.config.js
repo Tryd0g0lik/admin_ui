@@ -39,6 +39,7 @@ module.exports = {
   },
 
   plugins: {
+    // '@stylistic/ts': stylisticTs,
     '@eslint/js': eslint,
     'typescript-eslint': tseslint,
     'eol-last': ['error', 'always'],
@@ -78,6 +79,8 @@ module.exports = {
     'no-multiple-empty-lines': ['error', { max: 1, maxBOF: 0, maxEOF: 1 }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    // не востребованные переменные
+    "@typescript-eslint/no-unused-vars": "error",
     quotes: 'off',
     'import/extensions': [
       'error',
@@ -96,6 +99,14 @@ module.exports = {
       anonymous: 'always',
       named: 'never',
     }],
+    //в операторах возврата всегда или никогда указывались значения
+    "consistent-return": "off",
+    "@typescript-eslint/consistent-return": "error",
+    //запрещает использовать переменные до их определения
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "error",
+    //  запрещает пустые экспорты
+    "@typescript-eslint/no-useless-empty-export": "error",
     'no-new': 'off',
     'no-new-wrappers': 'off',
 
