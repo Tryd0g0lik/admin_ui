@@ -3,20 +3,20 @@
  */
 import React, { JSX, useState, useEffect } from "react";
 import { handlerInputFileds } from "src/components/InSideForm/handlers/handlerForm";
-import "./styles/index.css";
+import "./styles/style.css";
 import taskRequestToServer from "src/components/NavBar/tasks/requestServer";
 import { User, UserStatus } from "src/interfesaces";
 type UseStateCallBack = { setuserdata: CallableFunction, reduxDispatch: CallableFunction };
 import { setUser, resetSetUser } from "src/reduxes/features/userstate/userSlice";
 import { useSelector } from "react-redux";
 import { RootState } from 'src/reduxes/store';
-
+import { buttonExitF } from "src/services/handler/handlerButtonExit";
 /**
  * This function checks the usr's tokens/ response from the server.
  * @param res - Response of taskRequestToServer function with type of boolean or User object;
  * @param setuserdata - The useState callback of MainFC component. 
  * @param timeinterval - The NodeJS.Timeout from setInterval function.
- * @returns boolean; If get the true value, it mean we haw all Ok, or false
+ * @returns boolean; If get the true value, it mean we have all Ok, or false
  */
 function clearCach(res: boolean | User, setuserdata: CallableFunction, timeinterval: NodeJS.Timeout): boolean {
 
@@ -88,6 +88,13 @@ export function InSideFormFC(props: UseStateCallBack): JSX.Element {
             }
           }
         }, 2591400);
+      }
+      /** REMOVES THE MODAL WINDOW AFTER THE USER ACTIVATION EVENT  */
+      if (e.type.toLowerCase() === 'keydown' && (
+        e.key.toLowerCase() === 'enter'
+      )
+      ) {
+        buttonExitF();
       }
 
     }}>

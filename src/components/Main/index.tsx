@@ -8,7 +8,7 @@ import { Header01FC } from "src/components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from 'src/reduxes/store';
 import { User } from "src/interfesaces";
-import { handlerButtonExitFC } from "src/components/Main/nabdler/handlerButtonExit";
+import { handlerButtonExitFC } from "src/services/handler/handlerButtonExit";
 
 export function MainFC(): React.JSX.Element {
   const storeuserstate = useSelector((state: RootState) => state.userstate);

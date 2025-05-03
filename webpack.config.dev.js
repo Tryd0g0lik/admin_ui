@@ -164,7 +164,12 @@ module.exports = {
     modules: [
       path.resolve(__dirname, "node_modules"),
     ],
-
+    fallback: {
+      "buffer": require.resolve("buffer/"),
+      "crypto": require.resolve("crypto-browserify"),
+      "vm": require.resolve("vm-browserify"),
+      "stream": require.resolve("stream-browserify")
+    },    
     alias: {
       // "@Service": path.resolve(__dirname, "src/services"),
       // "@Interfaces": path.resolve(__dirname, "src/interfaces.ts"),

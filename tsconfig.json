@@ -17,7 +17,7 @@
     "skipLibCheck": true,
     "outDir": "dist",
     "strictNullChecks": true,
-    // "noImplicitReturns": true,
+    "noImplicitReturns": true,
     // "noUnusedLocals": false,
     // "allowSyntheticDefaultImports": true,
     // "esModuleInterop": true,

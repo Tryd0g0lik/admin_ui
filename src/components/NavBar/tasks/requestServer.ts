@@ -1,5 +1,5 @@
 import { handlerRequstTokenGenerate } from "src/components/NavBar/hamdlers/handlerRequest";
-import { handlerRequestTokenRefresh } from "src/components/NavBar/hamdlers/handlerRequestRefresh";
+import { handlerRequestTokenRefresh } from "src/services/handler/handlerRequestRefresh";
 import { User, TokenGenerate } from "src/interfesaces";
 import { taskCookieUpdate } from "src/services/cookies/cookieUpdate";
 import { UserStatus, UserPrivaleges } from "src/interfesaces";
@@ -35,13 +35,19 @@ async function taskRequestToServer(userstate: User): Promise<User | boolean> {
       result = await handlerRequstTokenGenerate({ ...userstate }) as TokenGenerate;
       // Updats of cookie from data of Token - Generate.
       if ((result as TokenGenerate).access_expired_at > 0) {
-        taskCookieUpdate(result as TokenGenerate);
+        const respBool = await taskCookieUpdate(result as TokenGenerate);
+        if (!respBool) {
+          console.error("[taskRequestToServer]: Error. Somethins what wrong to the update's cookie!");
+          return false;
+        }
+
         /** Update the user properties */
         new_userstate.email = "";
         new_userstate.password = "";
         new_userstate.privaleges = [UserPrivaleges.PRIVALEGES_SUPER_ADMIN];
         new_userstate.status = UserStatus.STATUS_SUPER_ADMIN;
         console.log('Вы вошли в систему', new_userstate["status"]);
+        localStorage.setItem("user", JSON.stringify(new_userstate));
         return new_userstate;
       } else {
         /* These are incorrect tokens. Repeat the request. */
@@ -73,7 +79,12 @@ async function taskRequestToServer(userstate: User): Promise<User | boolean> {
       result = await handlerRequestTokenRefresh({ refresh_token: result }) as TokenGenerate;
       if ((result as TokenGenerate).access_expired_at > 0) {
         // Updats of cookie from data of Token - Refresh.
-        taskCookieUpdate(result as TokenGenerate);
+        const respBool = taskCookieUpdate(result as TokenGenerate);
+        if (!respBool) {
+          console.error("[taskRequestToServer]: Error. Somethins what wrong to the update's cookie!");
+          return false;
+        }
+
         /** Update the user properties */
         new_userstate.email = "";
         new_userstate.password = "";

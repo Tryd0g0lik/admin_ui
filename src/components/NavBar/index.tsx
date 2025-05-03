@@ -1,12 +1,12 @@
 /**
  * src\components\NavBar\index.tsx
  */
-import React, { JSX, useState, useEffect, FunctionComponent, ReactNode } from "react";
-import { User, HendlerPropType } from "src/interfesaces";
+import React, { JSX, useState, useEffect } from "react";
+import { User, } from "src/interfesaces";
 import taskStylesOfModalWindow from "src/components/NavBar/tasks/stylesModalWindow";
 import { handlerButtonLoginOut } from "src/components/NavBar/hamdlers/handlerButton";
-import { Header01FC } from "../Header";
-import "./styles/index.css";
+// import { Header01FC } from "../Header";
+import "./styles/style.css";
 type userStateConstantes = { userstate: User };
 // , ChildComponent: ReturnType<(props: HendlerPropType) => JSX.Element>
 

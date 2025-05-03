@@ -1,0 +1,11 @@
+section.posts {
+  margin: 1em auto;
+  padding: 1em;
+  width: 100%;
+  max-width: 1024px;
+  min-height: 100vh;
+}
+.posts_button__loading .posts_button{
+  max-height: 25px;
+  min-height: 25px;
+}
