@@ -9,3 +9,65 @@ section.posts {
   max-height: 25px;
   min-height: 25px;
 }
+/* POSTS */
+.chat-image.avatar {
+  width: 150px;
+}
+
+.chat.chat-start {
+  position: relative;
+}
+
+.posts_post .date,
+.posts_post .post-author {
+  font-size: 0.6rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.posts_post .date::before {
+  content: "Создано: ";
+  /* display: inline-block; */
+  vertical-align: top;
+}
+
+.posts_post .date-updated {
+  top: inherit;
+  bottom: 0;
+
+}
+
+.posts_post .date-updated:before {
+  content: "Обновлено: ";
+}
+
+.posts_post .chat-header {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.posts_post .avatar {
+  border-radius: 8px;
+}
+
+.posts_post div.tag-names {
+  padding: 0 0.125rem;
+  background-color: rgb(0, 153, 255, 0.2);
+  color: #fff;
+  border-radius: 8px;
+  margin-right: 5px;
+}
+
+.chat.chat-start div.tag-names::before {
+  content: "#";
+  color: rgb(0, 153, 255);
+  font-weight: 400;
+}
+
+.posts_post span.tag-name {
+  font-size: 0.7rem;
+  padding: 0 5px;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -52,6 +52,23 @@ export interface User extends UserSecretData {
 
 /** Type for HeaderFC's props */
 export type HendlerPropType = { userstatus: string, head: string | undefined };
+
+/* POSTS */
+export type PostType = {
+  "id": number,
+  "title": string,
+  "code": string,
+  "authorName": string | null,
+  "previewPicture": {
+    "id": number,
+    "name": string,
+    "url": string
+  },
+  "tagNames": string[],
+  "updatedAt": string,
+  "createdAt": string
+};
+
 /**
  * [
     {

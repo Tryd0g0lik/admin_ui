@@ -1,15 +1,22 @@
 /**
  * src\components\Posts\handlers\handlerRequest.ts
  * */
+import React from "react";
 import { getCoockie } from "src/services/cookies/getCookies";
 import requestJWTGet from "src/components/Posts/tasks/requestJWTGet";
 import { handlerRequestTokenRefresh } from "src/services/handler/handlerRequestRefresh";
 import { taskCookieUpdate } from "src/services/cookies/cookieUpdate";
 import { TokenGenerate } from "src/interfesaces";
 let index = 0;
-export async function handlerButtonRequest(): Promise<boolean> {
+
+export async function handlerButtonRequest(e: React.MouseEvent, callback: CallableFunction): Promise<boolean> {
+  e.preventDefault();
+  e.stopPropagation();
+
   /** ASYNC SUB FUNCTION */
   async function subFuncRefreshTokens() {
+
+    /** GET REFRESH TOKEN */
     const refreshToken = getCoockie("refresh_token");
     let result = await handlerRequestTokenRefresh(refreshToken as { "refresh_token": string });
     if (result && typeof result !== "object" || (Object.keys(result)).length < 2) {
@@ -40,9 +47,8 @@ export async function handlerButtonRequest(): Promise<boolean> {
       if (Object.keys(result).length === 0) {
         await subFuncRefreshTokens();
         if (index < 3) {
-          // await handlerButtonRequest();
           index++;
-          /** REPEAP REQUEST */
+          /** REPEAЕ REQUEST */
           continue;
         }
         index = +3;
@@ -50,7 +56,9 @@ export async function handlerButtonRequest(): Promise<boolean> {
         continue;
       }
       console.log(result);
-      index = + 3;
+      index = 0;
+      /** SUCCESS */
+      (callback as (result: object) => void)(result);
       return true;
     } else if (getTokenArr.length > 0 && getTokenArr.includes("refresh_token")) {
 
@@ -65,6 +73,6 @@ export async function handlerButtonRequest(): Promise<boolean> {
     }
     return false;
   }
-
+  index = 0;
   return false;
 }
