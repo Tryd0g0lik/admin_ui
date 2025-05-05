@@ -8,7 +8,6 @@
   "dependencies": {
     "ajv": "8.17.1",
     "ajv-keywords": "5.1.0",
-    "buffer": "^6.0.3",
     "cors": "^2.8.5",
     "crypto-browserify": "^3.12.1",
     "crypto-ts": "^1.0.2",
@@ -24,15 +23,13 @@
     "redux-thunk": "^3.1.0",
     "redux-typescript": "^1.2.1",
     "reselect": "^5.1.1",
-    "stream-browserify": "^3.0.0",
     "typescript": "^4.9.5",
-    "vm-browserify": "^1.1.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "lint": "eslint src --ext jsx,ts,tsx",
     "cssstyle": "npx @tailwindcss/cli -i ./src/styles/style.css -o ./src/output.css --watch",
-    "build:dist": "webpack --mode=production --config webpack.config.dev.js",
+    "build": "webpack --mode=production --config webpack.config.dev.js",
     "server": "webpack server --mode=development  --config webpack.config.dev.js",
     "pushing": "git push origin master",
     "prepare": "husky"
