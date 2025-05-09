@@ -20,9 +20,9 @@ const router_ = createBrowserRouter([
     )
   }
 ],
-  {
-    basename: "/admin_ui/",  
-  },
+  // {
+  //   basename: "/admin_ui/",  
+  // },
   {
     future: {
       v7_relativeSplatPath: true,
