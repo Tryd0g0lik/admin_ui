@@ -53,7 +53,6 @@ export function NavBarFC(props: userStateConstantes): JSX.Element {
                   <a>Администратор</a>
                   <ul className="p-2">
                     <li><a href="posts/" title="Ваш пост">Пост</a>
-                      <Link to="/posts/">Пост</Link> 
                     </li>
                     <li><a>Добавление поста</a></li>
                     <li><a>Редактирование поста</a></li>
