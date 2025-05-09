@@ -11,14 +11,6 @@ const router_ = createBrowserRouter([
     element: (
       <MainFC />
     ),
-    // id: 'subroot',
-    // children: [
-    //   {
-    //     path: "posts/",
-    //     element: <PostFC /> 
-    //   }
-    // ],
-    // element: <PostFC /> 
   },
   {
     path: "/posts/",
