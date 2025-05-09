@@ -35,7 +35,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'scripts/main-[id]-[fullhash].js',
     publicPath: '/admin_ui/',
-    // clean: true,
+    clean: true,
 
   },
   optimization: {
