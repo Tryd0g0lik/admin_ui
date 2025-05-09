@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkadmin_ui=self.webpackChunkadmin_ui||[]).push([[332],{814:(e,n,u)=>{var a=u(543),o=u.n(a);console.log(o().join(["Another","module","loaded!"]," "))}},e=>{e.O(0,[804],(()=>{return n=814,e(e.s=n);var n}));e.O()}]);
