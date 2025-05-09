@@ -13,7 +13,7 @@ const router_ = createBrowserRouter([
     )
   },
   {
-    path: "/admin_ui/posts/",
+    path: "/admin_ui/#/posts/",
     element: (
       <PostFC />
     )
