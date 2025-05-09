@@ -11,10 +11,12 @@ const router_ = createBrowserRouter([
     element: (
       <MainFC />
     ),
+    loader: MainFC,
     children: [
       {
         path: "/posts/",
         element: <PostFC />,
+        loader: PostFC
       },
     ],
 
