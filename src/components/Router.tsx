@@ -8,13 +8,11 @@ import { PostFC } from "src/components/Posts";
 const router_ = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <MainFC />
-    ),
+    Component: MainFC,
     children: [
       {
         path: "posts/",
-        element: <PostFC />
+        Component: PostFC
       }
     ]  
 
