@@ -21,6 +21,9 @@ const router_ = createBrowserRouter([
   }
 ],
   {
+    basename: "/admin_ui/",  // ⚠️ Добавьте это!
+  },
+  {
     future: {
       v7_relativeSplatPath: true,
     }
