@@ -7,13 +7,13 @@ import { MainFC } from "src/components/Main";
 import { PostFC } from "src/components/Posts";
 const router_ = createBrowserRouter([
   {
-    path: "/",
+    path: "/admin_ui/",
     element: (
       <MainFC />
     )
   },
   {
-    path: "posts/",
+    path: "/admin_ui/posts/",
     element: (
       <PostFC />
     )
