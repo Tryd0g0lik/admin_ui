@@ -13,10 +13,8 @@ const router_ = createBrowserRouter([
     ),
     children: [
       {
-        path: "/posts/",
-        Component: (
-          <PostFC />
-        )
+        path: "posts/",
+        element: <PostFC />
       }
     ]  
 
