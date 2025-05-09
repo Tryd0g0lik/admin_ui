@@ -53,8 +53,11 @@ export function NavBarFC(props: userStateConstantes): JSX.Element {
                 <><li>
                   <a>Администратор</a>
                   <ul className="p-2">
-                    {/* <li><a href="posts/" title="Ваш пост">Пост</a> */}
-                    <Navigate to="posts/" replace={true} />
+                    <li><a onClick={(e) => {
+                      e.preventDefault();
+                      window.history.pushState({}, "", "/admin_ui/posts/");
+
+                    }} href="posts/" title="Ваш пост">Пост</a>
                     </li>
                     <li><a>Добавление поста</a></li>
                     <li><a>Редактирование поста</a></li>
@@ -75,10 +78,11 @@ export function NavBarFC(props: userStateConstantes): JSX.Element {
                 <details>
                   <summary>Администратор</summary>
                   <ul className="p-2 ">
-                <li>
-                  {/* <a href="posts/" title="Ваш пост">Пост</a> */}
-                  <Navigate to="posts/" replace={true} />
-                </li>
+                    <li><a onClick={(e) => {
+                      e.preventDefault();
+                      window.history.pushState({}, "", "/admin_ui/posts/");
+
+                    }} href="posts/" title="Ваш пост">Пост</a></li>
                     <li><a>Добавление поста</a></li>
                     <li><a>Редактирование поста</a></li>
                     <li><a>Удаление поста</a></li>
