@@ -2,6 +2,7 @@
  * src\components\NavBar\index.tsx
  */
 import React, { JSX, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { User, } from "src/interfesaces";
 import taskStylesOfModalWindow from "src/components/NavBar/tasks/stylesModalWindow";
 import { handlerButtonLoginOut } from "src/components/NavBar/hamdlers/handlerButton";
@@ -52,8 +53,8 @@ export function NavBarFC(props: userStateConstantes): JSX.Element {
                 <><li>
                   <a>Администратор</a>
                   <ul className="p-2">
-                    <li><a href="posts/" title="Ваш пост">Пост</a>
-                      <Link to="/posts/">Пост</Link> 
+                    <li>
+                      <Link to="posts/">Пост</Link> 
                     </li>
                     <li><a>Добавление поста</a></li>
                     <li><a>Редактирование поста</a></li>
