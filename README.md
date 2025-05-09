@@ -1,3 +1,5 @@
+[Просмотр UI](https://tryd0g0lik.github.io/admin_ui/) страницы
+
 ### Команды
 ```js
 // package.json
