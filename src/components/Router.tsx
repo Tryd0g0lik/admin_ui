@@ -7,7 +7,7 @@ import { MainFC } from "src/components/Main";
 import { PostFC } from "src/components/Posts";
 const router_ = createBrowserRouter([
   {
-    path: "/",
+    path: "/admin_ui/",
     element: (
       <MainFC />
     )
@@ -21,7 +21,7 @@ const router_ = createBrowserRouter([
   }
 ],
   {
-    basename: "/admin_ui/",  // ⚠️ Добавьте это!
+    basename: "/admin_ui/",  
   },
   {
     future: {
