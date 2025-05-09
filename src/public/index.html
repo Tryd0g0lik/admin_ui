@@ -13,5 +13,12 @@
 <div id="root" class="container_fluid">
 
 </div>
-
+<script>
+  // Восстанавливаем путь после редиректа с 404.html
+  if (sessionStorage.redirect) {
+    const redirect = sessionStorage.redirect;
+    delete sessionStorage.redirect;
+    window.history.replaceState(null, null, redirect);
+  }
+</script>
 </html>

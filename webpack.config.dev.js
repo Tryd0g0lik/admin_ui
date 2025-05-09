@@ -117,6 +117,10 @@ module.exports = {
       template: 'src/public/index.html',
       filename: "index.html"
     }),
+    new HtmlWebpackPlugin({
+      template: 'src/public/404.html',
+      filename: "404.html"
+    }),
     new webpack.SourceMapDevToolPlugin({
       test: /\.tsx?$/,
       filename: '[file].map.[query]',
