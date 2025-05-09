@@ -2,7 +2,6 @@
  * src\components\NavBar\index.tsx
  */
 import React, { JSX, useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
 import { User, } from "src/interfesaces";
 import taskStylesOfModalWindow from "src/components/NavBar/tasks/stylesModalWindow";
 import { handlerButtonLoginOut } from "src/components/NavBar/hamdlers/handlerButton";
@@ -53,11 +52,8 @@ export function NavBarFC(props: userStateConstantes): JSX.Element {
                 <><li>
                   <a>Администратор</a>
                   <ul className="p-2">
-                    <li><a onClick={(e) => {
-                      e.preventDefault();
-                      window.history.pushState({}, "", "/admin_ui/posts/");
-
-                    }} href="posts/" title="Ваш пост">Пост</a>
+                    <li><a href="posts/" title="Ваш пост">Пост</a>
+                      <Link to="/posts/">Пост</Link> 
                     </li>
                     <li><a>Добавление поста</a></li>
                     <li><a>Редактирование поста</a></li>
@@ -78,11 +74,7 @@ export function NavBarFC(props: userStateConstantes): JSX.Element {
                 <details>
                   <summary>Администратор</summary>
                   <ul className="p-2 ">
-                    <li><a onClick={(e) => {
-                      e.preventDefault();
-                      window.history.pushState({}, "", "/admin_ui/posts/");
-
-                    }} href="posts/" title="Ваш пост">Пост</a></li>
+                    <li><a href="posts/" title="Ваш пост">Пост</a></li>
                     <li><a>Добавление поста</a></li>
                     <li><a>Редактирование поста</a></li>
                     <li><a>Удаление поста</a></li>

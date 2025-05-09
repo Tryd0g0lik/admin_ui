@@ -13,7 +13,7 @@ const router_ = createBrowserRouter([
     ),
   },
   {
-    path: "/posts/",
+    path: "posts/",
     id: 'subroot',
     children: [
       {
@@ -22,7 +22,13 @@ const router_ = createBrowserRouter([
       }
     ],
     element: <PostFC /> 
-  }
+  },
+  {
+    path: "posts/",
+    element: (
+      <PostFC />
+    ),
+  },
 ],
   {
     basename: "/admin_ui/",
