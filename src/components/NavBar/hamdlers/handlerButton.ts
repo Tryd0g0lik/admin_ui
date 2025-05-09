@@ -21,7 +21,7 @@ export function handlerButtonLoginOut(e: React.MouseEvent): boolean {
     localStorage.removeItem('user');
     clearCoockie("access_token");
     clearCoockie("refresh_token");
-    window.location.pathname = "/";
+    window.location.pathname = "/admin_ui/";
     return false;
   }
 return true;

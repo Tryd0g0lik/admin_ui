@@ -14,14 +14,14 @@ export function Header01FC(props: HendlerPropType): JSX.Element {
   return (
     
     <section className="h1" >
-      {window.location.pathname === "/" && window.location.pathname.length < 2 && !userstatus.includes("ANONYMOUSUSER") && (
+      {window.location.pathname === "/admin_ui/" && window.location.pathname.length < 2 && !userstatus.includes("ANONYMOUSUSER") && (
         
           <h1 className="">
             {userstatus === "SUPER_ADMIN" ? "Вы вошли в систему как Администратор" : `${userstatus} - Вы вошли в профиль`}
           </h1>
       )}
       {
-        window.location.pathname === "/" && window.location.pathname.length < 2 && userstatus.includes("ANONYMOUSUSER") && (
+        window.location.pathname === "/admin_ui/" && window.location.pathname.length < 2 && userstatus.includes("ANONYMOUSUSER") && (
           <h1 className="">
             Подтвердите свой профиль.
           </h1>
