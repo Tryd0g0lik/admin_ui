@@ -2,7 +2,7 @@
   "name": "admin_ui",
   "version": "1.0.0",
   "description": "\"README.md\"",
-  "main": "babel.config.js",
+  "main": "src/index.ts",
   "type": "commonjs",
   "private": true,
   "dependencies": {
@@ -125,5 +125,5 @@
   "bugs": {
     "url": "https://github.com/Tryd0g0lik/admin_ui/issues"
   },
-  "homepage": "https://github.com/Tryd0g0lik/admin_ui#readme"
+  "homepage": "https://tryd0g0lik.github.io/admin_ui/"
 }
