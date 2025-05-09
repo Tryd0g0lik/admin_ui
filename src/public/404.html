@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    // Сохраняем запрошенный путь и перенаправляем на index.html
+    sessionStorage.redirect = location.pathname;
+    window.location.href = '/admin_ui/index.html';  // Путь до вашего index.html
+  </script>
+</head>
+
+<body></body>
+
+</html>
