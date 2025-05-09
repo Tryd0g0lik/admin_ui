@@ -14,7 +14,7 @@ const router_ = createBrowserRouter([
 
   },
   {
-    path: "posts/",
+    path: "/admin_ui/posts/",
     element: (
       <PostFC />
     )
