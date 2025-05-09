@@ -24,6 +24,7 @@ module.exports = {
     another: {
       import: './src/another-module.ts',
       dependOn: 'shared',
+
     },
     shared: 'lodash',
     // another: './src/another-module.js',
@@ -33,8 +34,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'scripts/main-[id]-[fullhash].js',
-    publicPath: '/',
-    clean: true,
+    publicPath: '/admin_ui/',
+    // clean: true,
 
   },
   optimization: {
