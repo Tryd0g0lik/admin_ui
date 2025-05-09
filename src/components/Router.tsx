@@ -10,10 +10,17 @@ const router_ = createBrowserRouter([
     path: "/admin_ui/",
     element: (
       <MainFC />
-    )
+    ),
+    children: [
+      {
+        path: "/posts/",
+        element: <PostFC />,
+      },
+    ],
+
   },
   {
-    path: "/admin_ui/#/posts/",
+    path: "/posts/",
     element: (
       <PostFC />
     )
